@@ -61,9 +61,8 @@ public class LocalHostExporter implements ResourcePackExporter {
         server.resourcePack(pack);
 
         URI uri = URI.create(String.format(
-                "http://%s:%s/%s.zip",
+                "https://%s/%s.zip",
                 server.publicAddress(),
-                server.port(),
                 pack.hash()
         ));
 
