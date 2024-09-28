@@ -30,4 +30,4 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                 name: creative-central
-                path: ${{ github.workspace }}bukkit//build/libs
+                path: ${{ github.workspace }}/bukkit/build/libs
