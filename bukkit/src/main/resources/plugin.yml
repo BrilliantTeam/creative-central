@@ -4,6 +4,7 @@ version: ${project.version}
 api-version: 1.13
 description: Creative central, the resource-pack unifier
 author: Unnamed Team
+folia-supported: true
 website: https://unnamed.team/docs/creative/central/creative-central
 libraries:
     - net.kyori:adventure-api:4.14.0
