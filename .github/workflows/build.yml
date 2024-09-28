@@ -1,7 +1,5 @@
 name: 'build'
-
-on: [ 'push', 'pull_request' ]
-
+on: [ 'pull_request', 'push' ]
 jobs:
     build:
         if: ${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}
@@ -9,9 +7,27 @@ jobs:
         steps:
             -   name: 'checkout repo'
                 uses: 'actions/checkout@v2'
-            -   name: 'setup JDK 1.8'
+            -   name: 'setup JDK'
                 uses: 'actions/setup-java@v1'
                 with:
-                    java-version: 1.8
+                    java-version: 17
             -   name: 'build'
-                run: './gradlew build'
+                run: './gradlew shadowJar'
+            - name: Cache
+              uses: actions/cache@v2
+              with:
+                path: |
+                  ~/.gradle/caches
+                  ~/.gradle/wrapper
+                  .gradle
+                key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'build.gradle.kts') }}
+            - name: Build with Gradle
+              run: |
+                chmod +x gradlew
+                ./gradlew build
+              timeout-minutes: 10
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                name: creative-central
+                path: ${{ github.workspace }}/plugin/build/libs
