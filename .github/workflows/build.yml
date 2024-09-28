@@ -30,4 +30,4 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                 name: creative-central
-                path: ${{ github.workspace }}/plugin/build/libs
+                path: ${{ github.workspace }}/build/libs
