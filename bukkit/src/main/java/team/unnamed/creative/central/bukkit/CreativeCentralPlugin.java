@@ -42,6 +42,7 @@ import team.unnamed.creative.central.bukkit.listener.ResourcePackSendListener;
 import team.unnamed.creative.central.bukkit.listener.ResourcePackStatusListener;
 import team.unnamed.creative.central.bukkit.request.BukkitResourcePackRequestSender;
 import team.unnamed.creative.central.bukkit.util.PluginResources;
+import team.unnamed.creative.central.bukkit.util.ScheduleUtil;
 import team.unnamed.creative.central.common.config.Configuration;
 import team.unnamed.creative.central.common.config.ExportConfiguration;
 import team.unnamed.creative.central.common.config.YamlConfigurationLoader;
@@ -241,7 +242,7 @@ public final class CreativeCentralPlugin extends JavaPlugin implements CreativeC
 
                         if (generatePack) {
                             getLogger().info("All external resource-packs finished generating...");
-                            Bukkit.getScheduler().runTaskLater(this, () -> {
+                            ScheduleUtil.GLOBAL.runTaskLater(this, () -> {
                                 this.generate().whenComplete((pack, throwable) -> {
                                     if (throwable != null) {
                                         getLogger().log(Level.SEVERE, "Error while generating resource pack", throwable);
@@ -353,7 +354,7 @@ public final class CreativeCentralPlugin extends JavaPlugin implements CreativeC
 
         return CompletableFuture.supplyAsync(
                 this::generateSync,
-                task -> Bukkit.getScheduler().runTaskAsynchronously(this, task)
+                task -> ScheduleUtil.GLOBAL.runTaskAsynchronously(this, task)
         );
     }
 

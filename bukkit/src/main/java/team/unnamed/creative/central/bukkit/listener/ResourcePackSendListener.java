@@ -29,6 +29,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import team.unnamed.creative.central.bukkit.CreativeCentralPlugin;
+import team.unnamed.creative.central.bukkit.util.ScheduleUtil;
 import team.unnamed.creative.central.request.ResourcePackRequest;
 import team.unnamed.creative.central.server.ServeOptions;
 
@@ -61,8 +62,9 @@ public class ResourcePackSendListener implements Listener {
             plugin.requestSender().send(player, request);
         } else {
             // delay the resource pack request
-            Bukkit.getScheduler().runTaskLater(
+            ScheduleUtil.ENTITY.runTaskLater(
                     plugin,
+                    player,
                     () -> plugin.requestSender().send(player, request),
                     delay * 20L
             );
