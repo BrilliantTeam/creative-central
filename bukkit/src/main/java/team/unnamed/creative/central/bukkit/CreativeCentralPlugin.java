@@ -212,7 +212,7 @@ public final class CreativeCentralPlugin extends JavaPlugin implements CreativeC
 
         if (awaitingProviders.isEmpty()) {
             // do not wait for anything
-            Bukkit.getScheduler().runTaskLater(this, () -> {
+            ScheduleUtil.GLOBAL.runTaskLater(this, () -> {
                 this.generate().whenComplete((pack, throwable) -> {
                     if (throwable != null) {
                         getLogger().log(Level.SEVERE, "Error while generating resource pack", throwable);
